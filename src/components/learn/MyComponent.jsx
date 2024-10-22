@@ -4,6 +4,8 @@
 import './style.css'
 
 const MyComponent = () => {
+
+
     return (
         <>
             <div>NMH học React</div>

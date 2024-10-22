@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-const TodoNew = () => {
+const TodoNew = (props) => {
+    const { setValue } = props;
 
     const [inputValue, setInputValue] = useState("");
 
@@ -10,7 +11,7 @@ const TodoNew = () => {
     }
 
     const handleOnClick = () => {
-        console.log("Bạn đã click vào đây");
+        setValue(inputValue);
     }
 
     return (

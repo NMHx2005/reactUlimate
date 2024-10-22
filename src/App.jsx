@@ -15,12 +15,21 @@ const App = () => {
     { id: "2", name: "Watching Youtube" }
   ])
 
+  const setValue = (inputValue) => {
+    const todoNew = {
+      id: todoList.length + 1,
+      name: inputValue
+    };
 
+    setTodoList([...todoList, todoNew]);
+  }
   return (
     <>
       <div className="todo-container">
         <div className="todo-title">Todo List</div>
-        <TodoNew />
+        <TodoNew
+          setValue={setValue}
+        />
         <TodoData
           data={data}
           todoList={todoList}

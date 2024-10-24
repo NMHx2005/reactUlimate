@@ -82,3 +82,9 @@
         animation: logo-spin infinite 20s linear;
     }
 }
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

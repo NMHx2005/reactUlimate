@@ -1,22 +1,25 @@
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Table } from 'antd';
-import { fetchAllUserAPI } from '../../services/api.service';
-import { useEffect, useState } from "react";
+import UpdateUserModal from './update.user.modal';
+import { useState } from 'react';
 
-const UserTable = () => {
-    const [dataUsers, setDataUsers] = useState([
-        { _id: "eric", fullName: 25, email: "hn" },
-        { _id: "hoidanit", fullName: 25, email: "hcm" }
-    ]);
+const UserTable = (props) => {
+    const { dataUsers, loadUser } = props;
 
-    useEffect(() => {
-        console.log(">>> run useEffect 111");
-        loadUser();
-    }, []);
+    const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+
+    const [dataUpdate, setDataUpdate] = useState(null);
 
     const columns = [
         {
             title: 'ID',
-            dataIndex: '_id'
+            dataIndex: '_id',
+            render: (_, record) => {
+                return (
+                    <a href='#'>{record._id}</a>
+                )
+            }
+
         },
         {
             title: 'Name',
@@ -25,15 +28,24 @@ const UserTable = () => {
         {
             title: 'Email',
             dataIndex: 'email'
-        }
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <div style={{ display: "flex", gap: "15px" }}>
+                    <EditOutlined
+                        onClick={() => {
+                            setDataUpdate(record);
+                            setIsModalUpdateOpen(true);
+                        }}
+                        style={{ cursor: "pointer", color: "orange" }}
+                    />
+                    <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                </div>
+            ),
+        },
     ];
-
-    const loadUser = async () => {
-        const res = await fetchAllUserAPI();
-        setDataUsers(res.data);
-    }
-
-    console.log("Run render 000");
 
     return (
         <>
@@ -41,6 +53,13 @@ const UserTable = () => {
                 columns={columns}
                 dataSource={dataUsers}
                 rowKey={"_id"}
+            />
+            <UpdateUserModal
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+                loadUser={loadUser}
             />
         </>
     )

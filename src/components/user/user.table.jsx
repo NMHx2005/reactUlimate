@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Table, Button, message, Popconfirm, notification } from 'antd';
+import { Table, Popconfirm, notification } from 'antd';
 import UpdateUserModal from './update.user.modal';
 import { useState } from 'react';
 import ViewUserDetailModal from './view.user.detail.modal';
@@ -16,7 +16,7 @@ const UserTable = (props) => {
 
     const [openDetailUserModal, setOpenDetailUserModal] = useState(false);
 
-    const cancel = (e) => {
+    const cancel = () => {
         // console.log(e);
         // message.error('Click on No');
     };

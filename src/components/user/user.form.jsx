@@ -1,7 +1,7 @@
 import Input from "antd/es/input/Input";
 import "./user.form.css"
 import { Button, Modal, notification } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createUserAPI } from "../../services/api.service";
 
 const UserForm = (props) => {

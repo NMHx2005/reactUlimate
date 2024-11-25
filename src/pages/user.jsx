@@ -7,13 +7,23 @@ const UserPage = () => {
 
     const [dataUsers, setDataUsers] = useState([]);
 
+    const [current, setCurrent] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
+    const [total, setTotal] = useState(0);
+
+
     useEffect(() => {
         loadUser();
-    }, []);
+    }, [current, pageSize]); // [] + condition (nếu giá trị của current thay đổi thì nó tự động render lại)
 
     const loadUser = async () => {
-        const res = await fetchAllUserAPI();
-        setDataUsers(res.data);
+        const res = await fetchAllUserAPI(current, pageSize);
+        if (res.data) {
+            setDataUsers(res.data.result);
+            setCurrent(res.data.meta.current);
+            setPageSize(res.data.meta.pageSize);
+            setTotal(res.data.meta.total);
+        }
     }
 
     return (
@@ -22,6 +32,11 @@ const UserPage = () => {
             <UserTable
                 dataUsers={dataUsers}
                 loadUser={loadUser}
+                current={current}
+                pageSize={pageSize}
+                total={total}
+                setCurrent={setCurrent}
+                setPageSize={setPageSize}
             />
         </div>
     )

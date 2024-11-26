@@ -1,0 +1,47 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    padding: 16px;
+}
+
+.full-height {
+    width: 100%;
+}
+
+.login-box {
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.extra-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.extra-links a {
+    font-size: 14px;
+    color: #1890ff;
+    text-decoration: none;
+}
+
+.extra-links a:hover {
+    text-decoration: underline;
+}
+
+.register-link {
+    color: #1890ff;
+}
+
+.register-link:hover {
+    color: #40a9ff;
+}

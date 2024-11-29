@@ -1,12 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
-import { UsergroupAddOutlined, HomeOutlined, FileSearchOutlined, SettingOutlined } from '@ant-design/icons';
+import { UsergroupAddOutlined, HomeOutlined, LoginOutlined, AliwangwangOutlined, AuditOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/auth.context";
 
 const Header = () => {
     const [current, setCurrent] = useState('');
+
+    const { user, setUser } = useContext(AuthContext);
     const onClick = (e) => {
-        console.log('click ', e);
         setCurrent(e.key);
     };
 
@@ -22,25 +24,20 @@ const Header = () => {
             icon: <UsergroupAddOutlined />
         },
         {
-            label: <Link to={"/books"}>Books</Link>,
+            label: <Link to={"/books"} >Books</Link>,
             key: 'books',
-            icon: <FileSearchOutlined />
+            icon: <AuditOutlined />
         },
-        {
-            label: 'Cài đặt',
+        ...(!user.id ? [{
+            label: <Link to={"/login"}>Đăng nhập</Link>,
+            key: 'login',
+            icon: <LoginOutlined />,
+        }] : []),
+        ...(user.id ? [{
+            label: `Welcome ${user.fullName}`,
             key: 'setting',
-            icon: <SettingOutlined />,
-            children: [
-                {
-                    label: <Link to={"/login"}>Đăng nhập</Link>,
-                    key: 'login',
-                },
-                {
-                    label: 'Đăng xuất',
-                    key: 'logout',
-                },
-            ],
-        },
+            icon: <AliwangwangOutlined />
+        }] : [])
     ];
     return (
         <Menu

@@ -76,4 +76,14 @@ const getAccountAPI = () => {
     return axios.get(URL_BACKEND);
 }
 
-export { createUserAPI, updateUserAPI, fetchAllUserAPI, deleteUserAPI, handleUploadFile, updateUserAvatarAPI, registerUserAPI, loginAPI, getAccountAPI };
+const logoutAPI = () => {
+    const URL_BACKEND = "/api/v1/auth/logout";
+    return axios.post(URL_BACKEND);
+}
+
+export {
+    createUserAPI, updateUserAPI, fetchAllUserAPI,
+    deleteUserAPI, handleUploadFile, updateUserAvatarAPI,
+    registerUserAPI, loginAPI, getAccountAPI,
+    logoutAPI
+};

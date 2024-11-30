@@ -74,7 +74,6 @@ const UserForm = (props) => {
                         <Input value={phone} onChange={(event) => setPhone(event.target.value)} />
                     </div>
                 </Modal>
-
             </div>
         </>
     )

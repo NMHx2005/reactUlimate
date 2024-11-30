@@ -18,8 +18,8 @@ const BookPage = () => {
         const res = await getListBooksAPI(current, pageSize);
         if (res.data) {
             setDataBook(res.data.result);
+            setPageSize(res.data.meta.pageSize);
             setTotal(res.data.meta.total);
-
         }
     }
 
@@ -28,7 +28,9 @@ const BookPage = () => {
             <div style={{
                 padding: "40px"
             }}>
-                <BookForm />
+                <BookForm
+                    ListBook={ListBook}
+                />
                 <BookTable
                     ListBook={ListBook}
                     current={current}

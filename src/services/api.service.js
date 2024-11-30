@@ -27,6 +27,7 @@ const deleteUserAPI = (id) => {
     return axios.delete(URL_BACKEND);
 }
 
+// Đẩy ảnh lên
 const handleUploadFile = (file, folder) => {
     // Lấy ra URL backend
     const URL_BACKEND = "/api/v1/file/upload";
@@ -89,10 +90,16 @@ const getListBooksAPI = (current, pageSize) => {
     return axios.get(URL_BACKEND);
 }
 
+// Thêm mới Book
+const createBookAPI = (mainText, author, price, quantity, category, thumbnail) => {
+    const URL_BACKEND = "api/v1/book";
+    const data = { mainText, author, price, quantity, category, thumbnail };
+    return axios.post(URL_BACKEND, data);
+}
 
 export {
     createUserAPI, updateUserAPI, fetchAllUserAPI,
     deleteUserAPI, handleUploadFile, updateUserAvatarAPI,
     registerUserAPI, loginAPI, getAccountAPI,
-    logoutAPI, getListBooksAPI
+    logoutAPI, getListBooksAPI, createBookAPI
 };

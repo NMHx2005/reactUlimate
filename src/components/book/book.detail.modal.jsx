@@ -1,5 +1,4 @@
-import { Button, Drawer } from "antd";
-import { useState } from "react";
+import { Drawer } from "antd";
 
 const BookDetailModal = (props) => {
     const { isOpenModal, setIsOpenModal, dataDetailBook, setDataDetailBook } = props;

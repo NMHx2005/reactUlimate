@@ -1,13 +1,37 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Space, Table, Tag } from "antd";
+import { Button, message, notification, Popconfirm, Space, Table, Tag } from "antd";
 import BookDetailModal from "./book.detail.modal";
 import { useState } from "react";
+import BookUpdateControlled from "./book.update.controlled";
+import BookUpdateUncontrolled from "./book.update.uncontrolled";
+import { deleteBookAPI } from "../../services/api.service";
 
 const BookTable = (props) => {
     const { ListBook, dataBook, current, pageSize, setPageSize, setCurrent, total } = props;
 
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [dataDetailBook, setDataDetailBook] = useState(null);
+
+    const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false);
+    const [dataBookUpdate, setDataBookUpdate] = useState(null);
+
+    const handleDeleteBook = async (id) => {
+        const res = await deleteBookAPI(id);
+        if (res.data) {
+            notification.success({
+                description: "Deleted Book Success"
+            })
+            await ListBook();
+        } else {
+            notification.error({
+                description: "Deleted Book Error"
+            })
+        }
+    }
+    const cancel = (e) => {
+        console.log(e);
+        message.error('Click on No');
+    };
 
     const columns = [
         {
@@ -66,8 +90,32 @@ const BookTable = (props) => {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <EditOutlined style={{ color: "orange" }} />
-                    <DeleteOutlined style={{ color: "red" }} />
+                    <EditOutlined
+                        style={{
+                            color: "orange",
+                            cursor: "pointer"
+                        }}
+                        onClick={() => {
+                            setIsOpenModalUpdate(true);
+                            setDataBookUpdate(record);
+                        }}
+                    />
+                    <Popconfirm
+                        title="Bạn có chắc muốn xóa không !!!"
+                        description="Delete Book ?"
+                        onConfirm={() => handleDeleteBook(record._id)}
+                        onCancel={cancel}
+                        okText="Yes"
+                        cancelText="No"
+                        placement="left"
+                    >
+                        <DeleteOutlined
+                            style={{
+                                color: "red",
+                                cursor: "pointer"
+                            }}
+                        />
+                    </Popconfirm>
                 </Space>
             ),
         },
@@ -106,6 +154,20 @@ const BookTable = (props) => {
                 setIsOpenModal={setIsOpenModal}
                 setDataDetailBook={setDataDetailBook}
                 dataDetailBook={dataDetailBook}
+            />
+            {/* <BookUpdateControlled
+                isOpenModalUpdate={isOpenModalUpdate}
+                setIsOpenModalUpdate={setIsOpenModalUpdate}
+                dataBookUpdate={dataBookUpdate}
+                setDataBookUpdate={setDataBookUpdate}
+                ListBook={ListBook}
+            /> */}
+            <BookUpdateUncontrolled
+                isOpenModalUpdate={isOpenModalUpdate}
+                setIsOpenModalUpdate={setIsOpenModalUpdate}
+                dataBookUpdate={dataBookUpdate}
+                setDataBookUpdate={setDataBookUpdate}
+                ListBook={ListBook}
             />
         </>
     )

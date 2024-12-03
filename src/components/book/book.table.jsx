@@ -7,7 +7,7 @@ import BookUpdateUncontrolled from "./book.update.uncontrolled";
 import { deleteBookAPI } from "../../services/api.service";
 
 const BookTable = (props) => {
-    const { ListBook, dataBook, current, pageSize, setPageSize, setCurrent, total } = props;
+    const { ListBook, dataBook, current, pageSize, setPageSize, setCurrent, total, loadingTable } = props;
 
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [dataDetailBook, setDataDetailBook] = useState(null);
@@ -148,6 +148,7 @@ const BookTable = (props) => {
                     }
                 }
                 onChange={onChange}
+                loading={loadingTable}
             />
             <BookDetailModal
                 isOpenModal={isOpenModal}

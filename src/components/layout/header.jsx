@@ -1,17 +1,31 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { UsergroupAddOutlined, HomeOutlined, LoginOutlined, AliwangwangOutlined, AuditOutlined } from '@ant-design/icons';
 import { Menu, message } from 'antd';
-import { Children, useContext, useState } from "react";
+import { Children, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import { logoutAPI } from "../../services/api.service";
 
 const Header = () => {
     const [current, setCurrent] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+
     const { user, setUser } = useContext(AuthContext);
     const onClick = (e) => {
         setCurrent(e.key);
     };
+
+    useEffect(() => {
+        if (location && location.pathname) {
+            const allRoutes = ["users", "books"];
+            const currentRoute = allRoutes.find(item => `/${item}` == location.pathname);
+            if (currentRoute) {
+                setCurrent(currentRoute);
+            } else {
+                setCurrent("home");
+            }
+        }
+    }, [location])
 
     const handleLogout = async () => {
         const res = await logoutAPI();
